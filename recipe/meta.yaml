@@ -1,6 +1,6 @@
 {% set name = "nbdime" %}
-{% set version = "0.1.0" %}
-{% set sha256 = "5af53ccf5b265546e61fbc096c4dd8122855b2aa02f8b60a99eeee01a8e33043" %}
+{% set version = "0.1.1" %}
+{% set sha256 = "39ff9ded0e0db77d3083363dc50d923524ad4a14a1ef59fc59fed50da42cf635" %}
 
 package:
   name: {{ name|lower }}
@@ -13,15 +13,14 @@ source:
 
 build:
   number: 0
-  script: python setup.py install --single-version-externally-managed --record record.txt
+  script: pip install --no-deps .
 
 requirements:
   build:
     - python
-    - setuptools
+    - pip
   run:
     - python
-    - setuptools
     - nbformat
     - six
     - colorama
