@@ -14,7 +14,7 @@ config=$(cat <<CONDARC
 
 channels:
  - conda-forge
- - defaults
+ - defaults # As we need conda-build
 
 conda-build:
  root-dir: /feedstock_root/build_artefacts
@@ -25,8 +25,8 @@ CONDARC
 )
 
 cat << EOF | docker run -i \
-                        -v "${RECIPE_ROOT}":/recipe_root \
-                        -v "${FEEDSTOCK_ROOT}":/feedstock_root \
+                        -v ${RECIPE_ROOT}:/recipe_root \
+                        -v ${FEEDSTOCK_ROOT}:/feedstock_root \
                         -a stdin -a stdout -a stderr \
                         condaforge/linux-anvil \
                         bash || exit $?
@@ -41,11 +41,7 @@ conda clean --lock
 conda install --yes --quiet conda-forge-build-setup
 source run_conda_forge_build_setup
 
-# Install conda-build 2.x.
-conda install --yes --quiet conda-build=2
-conda info
-
-  # Embarking on 4 case(s).
+# Embarking on 4 case(s).
     set -x
     export CONDA_PY=27
     set +x
@@ -69,6 +65,4 @@ conda info
     set +x
     conda build /recipe_root --quiet || exit 1
     upload_or_check_non_existence /recipe_root conda-forge --channel=main || exit 1
-# Inspect the prefix lengths of the built packages.
-conda inspect prefix-lengths /feedstock_root/build_artefacts/linux-64/*.tar.bz2
 EOF
