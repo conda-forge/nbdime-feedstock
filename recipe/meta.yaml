@@ -1,6 +1,6 @@
 {% set name = "nbdime" %}
-{% set version = "0.1.1" %}
-{% set sha256 = "39ff9ded0e0db77d3083363dc50d923524ad4a14a1ef59fc59fed50da42cf635" %}
+{% set version = "0.1.2" %}
+{% set sha256 = "4adb8ff052a7c778fb5f00872172a3790504de392eb7f23b6ae96b8a8165a695" %}
 
 package:
   name: {{ name|lower }}
@@ -13,7 +13,7 @@ source:
 
 build:
   number: 0
-  script: python setup.py install --single-version-externally-managed --record record.txt
+  script: pip install --no-deps .
   entry_points:
     - nbdime=nbdime.__main__:main_dispatch
     - nbshow=nbdime.nbshowapp:main
@@ -29,10 +29,9 @@ build:
 requirements:
   build:
     - python
-    - setuptools
+    - pip
   run:
     - python
-    - setuptools
     - nbformat
     - six
     - colorama
@@ -45,6 +44,15 @@ test:
     - nbdime
   commands:
     - nbdime show -h
+    - nbshow -h
+    - nbdiff -h
+    - nbdiff-web -h
+    - nbmerge -h
+    - nbmerge-web -h
+    - git-nbdifftool -h
+    - git-nbmergetool -h
+    - git-nbdiffdriver -h
+    - git-nbmergedriver -h
 
 about:
   home: https://nbdime.readthedocs.io/
