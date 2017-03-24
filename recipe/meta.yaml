@@ -58,7 +58,7 @@ about:
   home: https://nbdime.readthedocs.io/
   license: BSD-3-Clause
   license_family: BSD
-  license_file: COPYING.md
+  license_file: LICENSE.md
   summary: 'Diff and merge of Jupyter Notebooks'
   doc_url: https://nbdime.readthedocs.io/
   dev_url: https://github.com/jupyter/nbdime
