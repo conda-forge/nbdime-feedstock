@@ -1,6 +1,6 @@
 {% set name = "nbdime" %}
-{% set version = "0.1.2" %}
-{% set sha256 = "4adb8ff052a7c778fb5f00872172a3790504de392eb7f23b6ae96b8a8165a695" %}
+{% set version = "0.2.0" %}
+{% set sha256 = "0915df792ab82fe8c3d3c892123bae0d5fb0180bafa150e2fe4dd327ff7e3c82" %}
 
 package:
   name: {{ name|lower }}
@@ -37,7 +37,7 @@ requirements:
     - colorama
     - tornado
     - requests
-    - backports.shutil_which
+    - backports.shutil_which  # [py2k]
 
 test:
   imports:
@@ -58,7 +58,7 @@ about:
   home: https://nbdime.readthedocs.io/
   license: BSD-3-Clause
   license_family: BSD
-  license_file: COPYING.md
+  license_file: LICENSE.md
   summary: 'Diff and merge of Jupyter Notebooks'
   doc_url: https://nbdime.readthedocs.io/
   dev_url: https://github.com/jupyter/nbdime
