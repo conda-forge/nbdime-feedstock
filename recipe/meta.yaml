@@ -1,14 +1,14 @@
 {% set name = "nbdime" %}
-{% set version = "0.2.0" %}
-{% set sha256 = "0915df792ab82fe8c3d3c892123bae0d5fb0180bafa150e2fe4dd327ff7e3c82" %}
+{% set version = "0.3.0" %}
+{% set sha256 = "db44124bf5a8a00ff5ec36d4678fa18aa7ad15244948f3a09ab8dfd5a49a9ca2" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  fn: {{ name }}-{{ version }}.zip
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.zip
   sha256: {{ sha256 }}
 
 build:
@@ -37,6 +37,8 @@ requirements:
     - colorama
     - tornado
     - requests
+    - gitpython
+    - backports.functools_lru_cache  # [py2k]
     - backports.shutil_which  # [py2k]
 
 test:
