@@ -1,19 +1,21 @@
 {% set name = "nbdime" %}
-{% set version = "0.3.0" %}
-{% set sha256 = "db44124bf5a8a00ff5ec36d4678fa18aa7ad15244948f3a09ab8dfd5a49a9ca2" %}
+{% set version = "0.4.0" %}
+{% set sha256 = "8a45e39e246aee48d1359ff0059443361341005ae4d7f6ba519c889dd08e2fdc" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.zip
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.zip
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
 
 build:
   number: 0
-  script: pip install --no-deps .
+  script: |
+    pip install --no-binary {{ name }} --no-deps .
+    jupyter nbextension install --sys-prefix --py nbdime
   entry_points:
     - nbdime=nbdime.__main__:main_dispatch
     - nbshow=nbdime.nbshowapp:main
@@ -21,18 +23,27 @@ build:
     - nbdiff-web=nbdime.webapp.nbdiffweb:main
     - nbmerge=nbdime.nbmergeapp:main
     - nbmerge-web=nbdime.webapp.nbmergeweb:main
-    - git-nbdifftool=nbdime.gitdifftool:main
-    - git-nbmergetool=nbdime.gitmergetool:main
-    - git-nbdiffdriver=nbdime.gitdiffdriver:main
-    - git-nbmergedriver=nbdime.gitmergedriver:main
-
+    - git-nbdiffdriver=nbdime.vcs.git.diffdriver:main
+    - git-nbdifftool=nbdime.vcs.git.difftool:main
+    - git-nbmergedriver=nbdime.vcs.git.mergedriver:main
+    - git-nbmergetool=nbdime.vcs.git.mergetool:main
+    - hg-nbdiff=nbdime.vcs.hg.diff:main
+    - hg-nbdiffweb=nbdime.vcs.hg.diffweb:main
+    - hg-nbmerge=nbdime.vcs.hg.merge:main
+    - hg-nbmergeweb=nbdime.vcs.hg.mergeweb:main
 requirements:
   build:
     - python
     - pip
+    - colorama
+    - notebook
+    - backports.functools_lru_cache  # [py2k]
+    - backports.shutil_which  # [py2k]
   run:
     - python
+    - jinja2
     - nbformat
+    - notebook
     - six
     - colorama
     - tornado
@@ -55,6 +66,10 @@ test:
     - git-nbmergetool -h
     - git-nbdiffdriver -h
     - git-nbmergedriver -h
+    - hg-nbdiff -h
+    - hg-nbdiffweb -h
+    - hg-nbmerge -h
+    - hg-nbmergeweb -h
 
 about:
   home: https://nbdime.readthedocs.io/
