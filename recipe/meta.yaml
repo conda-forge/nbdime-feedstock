@@ -1,6 +1,6 @@
 {% set name = "nbdime" %}
-{% set version = "0.4.1" %}
-{% set sha256 = "86dd00767f8f0ec4f22c9ceaba35130083e737e17de7b9f77ebcab254fd205f2" %}
+{% set version = "1.0.0" %}
+{% set sha256 = "9ae08e83f836898cffdf85547f5ea197d0b0e69a296d5b08626eab2e9bd43fec" %}
 
 package:
   name: {{ name|lower }}
