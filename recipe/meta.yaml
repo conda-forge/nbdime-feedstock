@@ -9,7 +9,7 @@ source:
   sha256: 763f21816a5ab2cc720cdfbcc6073cf0dc611ed8ed592741cfc3916843433a47
 
 build:
-  number: 0
+  number: 1000
   script:
     - "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
     - jupyter nbextension install --sys-prefix --py nbdime
