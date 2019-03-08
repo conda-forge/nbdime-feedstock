@@ -1,4 +1,4 @@
-{% set version = "1.0.4" %}
+{% set version = "1.0.5" %}
 
 package:
   name: nbdime
@@ -6,10 +6,10 @@ package:
 
 source:
   url: https://pypi.io/packages/source/n/nbdime/nbdime-{{ version }}.tar.gz
-  sha256: 75ffca68156390c896808a7cc4cec547cab14055f2cfb70749fde465d1f8275a
+  sha256: 0928fb09bf384d2b66760d1fc29f6bdf1843770ab2cb2761fe5d296636222964
 
 build:
-  number: 1000
+  number: 0
   script:
     - "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
     - jupyter nbextension install --sys-prefix --py nbdime
