@@ -38,7 +38,7 @@ requirements:
     - backports.shutil_which  # [py2k]
   run:
     - python
-    - jinja2
+    - jinja2 >=2.9
     - nbformat
     - notebook
     - six
@@ -46,6 +46,7 @@ requirements:
     - tornado
     - requests
     - gitpython
+    - pygments
     - backports.functools_lru_cache  # [py2k]
     - backports.shutil_which  # [py2k]
 
