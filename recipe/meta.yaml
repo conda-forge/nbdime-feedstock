@@ -1,4 +1,4 @@
-{% set version = "1.1.0" %}
+{% set version = "2.0.0" %}
 
 package:
   name: nbdime
@@ -6,12 +6,12 @@ package:
 
 source:
   url: https://pypi.io/packages/source/n/nbdime/nbdime-{{ version }}.tar.gz
-  sha256: 80032f75d2a9a4b23bb1a0cd6411a68ced8c33b8a63d9ab7cfbb9c47ab3dde61
+  sha256: 896f79a23557f190b73a3981fdceb128a2d24454701daef74d82aac2aa10715d
 
 build:
   number: 0
   script:
-    - "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
+    - {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
     - jupyter nbextension install --sys-prefix --py nbdime
   entry_points:
     - nbdime=nbdime.__main__:main_dispatch
@@ -74,7 +74,7 @@ about:
   license: BSD-3-Clause
   license_family: BSD
   license_file: LICENSE.md
-  summary: 'Diff and merge of Jupyter Notebooks'
+  summary: Diff and merge of Jupyter Notebooks
   doc_url: https://nbdime.readthedocs.io/
   dev_url: https://github.com/jupyter/nbdime
 
