@@ -10,6 +10,7 @@ source:
 
 build:
   number: 0
+  skip: True  # [py2k]
   script:
     - {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
     - jupyter nbextension install --sys-prefix --py nbdime
@@ -45,10 +46,8 @@ requirements:
     - colorama
     - tornado
     - requests
-    - gitpython
+    - gitpython !=2.1.4,!=2.1.5,!=2.1.6
     - pygments
-    - backports.functools_lru_cache  # [py2k]
-    - backports.shutil_which  # [py2k]
 
 test:
   imports:
