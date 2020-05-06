@@ -9,8 +9,8 @@ source:
   sha256: 896f79a23557f190b73a3981fdceb128a2d24454701daef74d82aac2aa10715d
 
 build:
-  number: 0
-  skip: True  # [py2k]
+  number: 1
+  noarch: python
   script:
     - {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
     - jupyter nbextension install --sys-prefix --py nbdime
@@ -29,30 +29,33 @@ build:
     - hg-nbdiffweb=nbdime.vcs.hg.diffweb:main
     - hg-nbmerge=nbdime.vcs.hg.merge:main
     - hg-nbmergeweb=nbdime.vcs.hg.mergeweb:main
+
 requirements:
   host:
-    - python
+    - python >=3.5
     - pip
     - colorama
     - notebook
-    - backports.functools_lru_cache  # [py2k]
-    - backports.shutil_which  # [py2k]
   run:
-    - python
+    - python >=3.5
+    - colorama
+    - gitpython !=2.1.4,!=2.1.5,!=2.1.6
     - jinja2 >=2.9
     - nbformat
     - notebook
-    - six
-    - colorama
-    - tornado
-    - requests
-    - gitpython !=2.1.4,!=2.1.5,!=2.1.6
     - pygments
+    - requests
+    - six
+    - tornado
 
 test:
+  requires:
+    - pip
   imports:
     - nbdime
+    - nbdime.diffing
   commands:
+    - pip check
     - nbdime show -h
     - nbshow -h
     - nbdiff -h
