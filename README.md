@@ -5,7 +5,7 @@ Home: https://nbdime.readthedocs.io/
 
 Package license: BSD-3-Clause
 
-Feedstock license: BSD 3-Clause
+Feedstock license: BSD-3-Clause
 
 Summary: Diff and merge of Jupyter Notebooks
 
