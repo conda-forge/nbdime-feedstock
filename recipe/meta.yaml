@@ -12,7 +12,7 @@ build:
   number: 0
   noarch: python
   script:
-    - {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
+    - {{ PYTHON }} -m pip install . -vv
     - jupyter nbextension install --sys-prefix --py nbdime
   entry_points:
     - nbdime=nbdime.__main__:main_dispatch
@@ -32,12 +32,12 @@ build:
 
 requirements:
   host:
-    - python >=3.5
+    - python >=3.6
     - pip
     - colorama
     - notebook
   run:
-    - python >=3.5
+    - python >=3.6
     - colorama
     - gitpython !=2.1.4,!=2.1.5,!=2.1.6
     - jinja2 >=2.9
