@@ -34,19 +34,22 @@ requirements:
   host:
     - python >=3.6
     - pip
+    - setuptools >=40.8.0
+    - jupyterlab >=3.0,<4
     - colorama
-    - notebook
+    # - notebook
   run:
     - python >=3.6
-    - colorama
-    - gitpython !=2.1.4,!=2.1.5,!=2.1.6
-    - jinja2 >=2.9
     - nbformat
-    - notebook
-    - pygments
-    - requests
     - six
+    - colorama
+    - pygments
     - tornado
+    - requests
+    - GitPython !=2.1.4,!=2.1.5,!=2.1.6
+    - jupyter_server
+    - jupyter-server-mathjax >=0.2.2
+    - jinja2 >=2.9
 
 test:
   requires:
