@@ -1,4 +1,4 @@
-{% set version = "3.1.1" %}
+{% set version = "3.2.0" %}
 
 package:
   name: nbdime
@@ -6,57 +6,52 @@ package:
 
 source:
   url: https://pypi.io/packages/source/n/nbdime/nbdime-{{ version }}.tar.gz
-  sha256: 67767320e971374f701a175aa59abd3a554723039d39fae908e72d16330d648b
+  sha256: e50d1a0cf672e02356e10e6d3d0aea8e8612a534ae6e1b9bfd59ac3b60c405eb
 
 build:
   number: 0
   noarch: python
   script:
-    - {{ PYTHON }} -m pip install . -vv
-    - jupyter nbextension install --sys-prefix --py nbdime
+    - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   entry_points:
-    - nbdime=nbdime.__main__:main_dispatch
-    - nbshow=nbdime.nbshowapp:main
-    - nbdiff=nbdime.nbdiffapp:main
-    - nbdiff-web=nbdime.webapp.nbdiffweb:main
-    - nbmerge=nbdime.nbmergeapp:main
-    - nbmerge-web=nbdime.webapp.nbmergeweb:main
-    - git-nbdiffdriver=nbdime.vcs.git.diffdriver:main
-    - git-nbdifftool=nbdime.vcs.git.difftool:main
-    - git-nbmergedriver=nbdime.vcs.git.mergedriver:main
-    - git-nbmergetool=nbdime.vcs.git.mergetool:main
-    - hg-nbdiff=nbdime.vcs.hg.diff:main
-    - hg-nbdiffweb=nbdime.vcs.hg.diffweb:main
-    - hg-nbmerge=nbdime.vcs.hg.merge:main
-    - hg-nbmergeweb=nbdime.vcs.hg.mergeweb:main
+    - git-nbdiffdriver = nbdime.vcs.git.diffdriver:main
+    - git-nbdifftool = nbdime.vcs.git.difftool:main
+    - git-nbmergedriver = nbdime.vcs.git.mergedriver:main
+    - git-nbmergetool = nbdime.vcs.git.mergetool:main
+    - hg-nbdiff = nbdime.vcs.hg.diff:main
+    - hg-nbdiffweb = nbdime.vcs.hg.diffweb:main
+    - hg-nbmerge = nbdime.vcs.hg.merge:main
+    - hg-nbmergeweb = nbdime.vcs.hg.mergeweb:main
+    - nbdiff = nbdime.nbdiffapp:main
+    - nbdiff-web = nbdime.webapp.nbdiffweb:main
+    - nbdime = nbdime.__main__:main_dispatch
+    - nbmerge = nbdime.nbmergeapp:main
+    - nbmerge-web = nbdime.webapp.nbmergeweb:main
+    - nbshow = nbdime.nbshowapp:main
 
 requirements:
   host:
-    - python >=3.6
     - pip
-    - setuptools >=40.8.0
-    - jupyterlab >=3.0,<4
-    - colorama
-    # - notebook
-  run:
     - python >=3.6
-    - nbformat
-    - six
+  run:
     - colorama
-    - pygments
-    - tornado
-    - requests
-    - GitPython !=2.1.4,!=2.1.5,!=2.1.6
+    - gitpython !=2.1.4,!=2.1.5,!=2.1.6
+    - jinja2 >=2.9
     - jupyter_server
     - jupyter-server-mathjax >=0.2.2
-    - jinja2 >=2.9
+    - nbformat
+    - pygments
+    - python >=3.6
+    - requests
+    - tornado
 
 test:
   requires:
+    - jupyterlab >=3,<4
+    - m2-grep  # [win]
     - pip
   imports:
     - nbdime
-    - nbdime.diffing
   commands:
     - pip check
     - nbdime show -h
@@ -73,14 +68,31 @@ test:
     - hg-nbdiffweb -h
     - hg-nbmerge -h
     - hg-nbmergeweb -h
+    # print them all for debugging
+    - jupyter labextension list
+    - jupyter nbextension list
+    - jupyter server extension list
+    - jupyter serverextension list
+    # write out lists to grep
+    - jupyter labextension list 1>labextensions 2>&1
+    - jupyter nbextension list 1>nbextensions 2>&1
+    - jupyter server extension list 1>server_extensions 2>&1
+    - jupyter serverextension list 1>serverextensions 2>&1
+    # check files
+    - grep -iE "nbdime-jupyterlab.*OK*" labextensions
+    - grep -iE "nbdime.*enabled" nbextensions
+    - grep -iE "nbdime.*OK" server_extensions
+    - grep -iE "nbdime.*OK" serverextensions
 
 about:
-  home: https://nbdime.readthedocs.io/
+  home: https://nbdime.readthedocs.io
   license: BSD-3-Clause
   license_family: BSD
-  license_file: LICENSE.md
+  license_file:
+    - LICENSE.md
+    - nbdime/labextension/static/third-party-licenses.json
   summary: Diff and merge of Jupyter Notebooks
-  doc_url: https://nbdime.readthedocs.io/
+  doc_url: https://nbdime.readthedocs.io
   dev_url: https://github.com/jupyter/nbdime
 
 extra:
@@ -88,3 +100,4 @@ extra:
     - kain88-de
     - minrk
     - ocefpaf
+    - bollwyvl
