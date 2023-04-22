@@ -12,7 +12,7 @@ build:
   number: 0
   noarch: python
   script:
-    - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation --install-option="--skip-npm"
+    - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   entry_points:
     - git-nbdiffdriver = nbdime.vcs.git.diffdriver:main
     - git-nbdifftool = nbdime.vcs.git.difftool:main
