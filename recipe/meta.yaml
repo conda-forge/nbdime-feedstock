@@ -1,4 +1,4 @@
-{% set version = "3.2.0" %}
+{% set version = "3.2.1" %}
 
 package:
   name: nbdime
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/n/nbdime/nbdime-{{ version }}.tar.gz
-  sha256: e50d1a0cf672e02356e10e6d3d0aea8e8612a534ae6e1b9bfd59ac3b60c405eb
+  sha256: 31409a30f848ffc6b32540697e82d5a0a1b84dcc32716ca74e78bcc4b457c453
 
 build:
   number: 0
