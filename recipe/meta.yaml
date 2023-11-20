@@ -75,15 +75,12 @@ test:
     # print them all for debugging
     - jupyter labextension list
     - jupyter server extension list
-    - jupyter serverextension list
     # write out lists to grep
     - jupyter labextension list 1>labextensions 2>&1
     - jupyter server extension list 1>server_extensions 2>&1
-    - jupyter serverextension list 1>serverextensions 2>&1
     # check files
     - grep -iE "nbdime-jupyterlab.*OK*" labextensions
     - grep -iE "nbdime.*OK" server_extensions
-    - grep -iE "nbdime.*OK" serverextensions
 
 about:
   home: https://nbdime.readthedocs.io
