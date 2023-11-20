@@ -1,4 +1,4 @@
-{% set version = "3.2.1" %}
+{% set version = "4.0.0" %}
 
 package:
   name: nbdime
@@ -6,7 +6,9 @@ package:
 
 source:
   url: https://pypi.io/packages/source/n/nbdime/nbdime-{{ version }}.tar.gz
-  sha256: 31409a30f848ffc6b32540697e82d5a0a1b84dcc32716ca74e78bcc4b457c453
+  sha256: d7edb551f2f9317a00b22411d3c38374cc9e0089e5eea205153f659afb57f88a
+  patches:
+    - 740-release-version.diff
 
 build:
   number: 0
@@ -28,9 +30,11 @@ build:
     - nbmerge = nbdime.nbmergeapp:main
     - nbmerge-web = nbdime.webapp.nbmergeweb:main
     - nbshow = nbdime.nbshowapp:main
-
 requirements:
   host:
+    - hatch-jupyter-builder >=0.5
+    - hatchling >=1.5.0
+    - jupyterlab >=4.0.0,<5
     - pip
     - python >=3.6
   run:
@@ -47,7 +51,7 @@ requirements:
 
 test:
   requires:
-    - jupyterlab >=3,<4
+    - jupyterlab >=4.0.0,<5.0.0a0
     - m2-grep  # [win]
     - pip
   imports:
@@ -70,19 +74,13 @@ test:
     - hg-nbmergeweb -h
     # print them all for debugging
     - jupyter labextension list
-    - jupyter nbextension list
     - jupyter server extension list
-    - jupyter serverextension list
     # write out lists to grep
     - jupyter labextension list 1>labextensions 2>&1
-    - jupyter nbextension list 1>nbextensions 2>&1
     - jupyter server extension list 1>server_extensions 2>&1
-    - jupyter serverextension list 1>serverextensions 2>&1
     # check files
     - grep -iE "nbdime-jupyterlab.*OK*" labextensions
-    - grep -iE "nbdime.*enabled" nbextensions
     - grep -iE "nbdime.*OK" server_extensions
-    - grep -iE "nbdime.*OK" serverextensions
 
 about:
   home: https://nbdime.readthedocs.io

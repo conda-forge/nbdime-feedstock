@@ -1,0 +1,12 @@
+diff --git a/nbdime/_version.py b/nbdime/_version.py
+index e8741df1..713669f4 100644
+--- a/nbdime/_version.py
++++ b/nbdime/_version.py
+@@ -6,7 +6,7 @@
+
+ VersionInfo = namedtuple("VersionInfo", ["major", "minor", "micro", "releaselevel", "serial"])
+
+-_specifier_ = {"a": "alpha", "b": "beta", "rc": "candidate", "": "final"}
++_specifier_ = {"a": "alpha", "b": "beta", "rc": "candidate", "": "final", None: "final"}
+
+ __version__ = "4.0.0"
