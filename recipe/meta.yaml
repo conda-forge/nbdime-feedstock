@@ -49,7 +49,7 @@ requirements:
 
 test:
   requires:
-    - jupyterlab >=3,<4
+    - jupyterlab >=4.0.0,<5.0.0a0
     - m2-grep  # [win]
     - pip
   imports:
@@ -72,17 +72,14 @@ test:
     - hg-nbmergeweb -h
     # print them all for debugging
     - jupyter labextension list
-    - jupyter nbextension list
     - jupyter server extension list
     - jupyter serverextension list
     # write out lists to grep
     - jupyter labextension list 1>labextensions 2>&1
-    - jupyter nbextension list 1>nbextensions 2>&1
     - jupyter server extension list 1>server_extensions 2>&1
     - jupyter serverextension list 1>serverextensions 2>&1
     # check files
     - grep -iE "nbdime-jupyterlab.*OK*" labextensions
-    - grep -iE "nbdime.*enabled" nbextensions
     - grep -iE "nbdime.*OK" server_extensions
     - grep -iE "nbdime.*OK" serverextensions
 
