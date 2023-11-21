@@ -7,8 +7,6 @@ package:
 source:
   url: https://pypi.io/packages/source/n/nbdime/nbdime-{{ version }}.tar.gz
   sha256: f1a760c0b00c1ba9b4945c16ce92577f393fb51d184f351b7685ba6e8502098e
-  patches:
-    - 740-release-version.diff
 
 build:
   number: 0
