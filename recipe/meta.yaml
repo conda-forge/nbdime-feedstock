@@ -5,11 +5,11 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/n/nbdime/nbdime-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/n/nbdime/nbdime-{{ version }}.tar.gz
   sha256: d8279f8f4b236c0b253b20d60c4831bb67843ed8dbd6e09f234eb011d36f1bf2
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script:
     - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
@@ -34,7 +34,7 @@ requirements:
     - hatchling >=1.5.0
     - jupyterlab >=4.0.0,<5
     - pip
-    - python >=3.6
+    - python {{ python_min }}
   run:
     - colorama
     - gitpython !=2.1.4,!=2.1.5,!=2.1.6
@@ -43,7 +43,7 @@ requirements:
     - jupyter-server-mathjax >=0.2.2
     - nbformat
     - pygments
-    - python >=3.6
+    - python >={{ python_min }}
     - requests
     - tornado
 
@@ -52,6 +52,7 @@ test:
     - jupyterlab >=4.0.0,<5.0.0a0
     - m2-grep  # [win]
     - pip
+    - python {{ python_min }}
   imports:
     - nbdime
   commands:
