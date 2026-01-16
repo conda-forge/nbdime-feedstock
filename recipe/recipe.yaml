@@ -70,25 +70,7 @@ tests:
         - jupyterlab
         - python ${{ python_min }}.*
     script:
-      - nbdime show -h
-      - nbshow -h
-      - nbdiff -h
-      - nbdiff-web -h
-      - nbmerge -h
-      - nbmerge-web -h
-      - git-nbdifftool -h
-      - git-nbmergetool -h
-      - git-nbdiffdriver -h
-      - git-nbmergedriver -h
-      - hg-nbdiff -h
-      - hg-nbdiffweb -h
-      - hg-nbmerge -h
-      - hg-nbmergeweb -h
-      - jupyter labextension list
-      - jupyter server extension list
-      - jupyter labextension list | python -c "import sys,re; assert re.match('nbdime-jupyterlab.*OK*', sys.stdin.read())"
-      - jupyter server extension list | python -c "import sys,re; assert re.match('nbdime.*OK*', sys.stdin.read())"
-
+      file: run_test.py
 about:
   license: BSD-3-Clause
   license_file:
