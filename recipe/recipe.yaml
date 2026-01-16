@@ -1,0 +1,89 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
+schema_version: 1
+
+context:
+  version: "4.0.3"
+  python_check_max: "3.14"
+  jupyterlab_min: "4.0.0"
+  jupyterlab_max: "5"
+
+package:
+  name: nbdime
+  version: ${{ version }}
+
+source:
+  url: https://pypi.org/packages/source/n/nbdime/nbdime-${{ version }}.tar.gz
+  sha256:  62ab50a758282523c4501144b9f314221dbbaed0403c12fd70f6a4fcc532ec24
+
+build:
+  number: 0
+  noarch: python
+  script:
+    - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  python:
+    entry_points:
+      - git-nbdiffdriver = nbdime.vcs.git.diffdriver:main
+      - git-nbdifftool = nbdime.vcs.git.difftool:main
+      - git-nbmergedriver = nbdime.vcs.git.mergedriver:main
+      - git-nbmergetool = nbdime.vcs.git.mergetool:main
+      - hg-nbdiff = nbdime.vcs.hg.diff:main
+      - hg-nbdiffweb = nbdime.vcs.hg.diffweb:main
+      - hg-nbmerge = nbdime.vcs.hg.merge:main
+      - hg-nbmergeweb = nbdime.vcs.hg.mergeweb:main
+      - nbdiff = nbdime.nbdiffapp:main
+      - nbdiff-web = nbdime.webapp.nbdiffweb:main
+      - nbdime = nbdime.__main__:main_dispatch
+      - nbmerge = nbdime.nbmergeapp:main
+      - nbmerge-web = nbdime.webapp.nbmergeweb:main
+      - nbshow = nbdime.nbshowapp:main
+
+requirements:
+  host:
+    - hatch-jupyter-builder >=0.5
+    - hatchling >=1.5.0
+    - jupyterlab >=${{ jupyterlab_min }},<${{ jupyterlab_max }}
+    - pip
+    - python ${{ python_min }}.*
+  run:
+    - colorama
+    - gitpython !=2.1.4,!=2.1.5,!=2.1.6
+    - jinja2 >=2.9
+    - jupyter_server
+    - jupyter-server-mathjax >=0.2.2
+    - nbformat
+    - pygments
+    - python >=${{ python_min }}
+    - requests
+    - tornado
+  run_constraints:
+    - jupyterlab >=${{ jupyterlab_min }},<${{ jupyterlab_max }}
+
+tests:
+  - python:
+      imports: nbdime
+      pip_check: true
+      python_version:
+        - ${{ python_min }}.*
+        - ${{ python_check_max }}.*
+  - requirements:
+      run:
+        - jupyterlab
+        - python ${{ python_min }}.*
+    script:
+      file: run_test.py
+about:
+  license: BSD-3-Clause
+  license_file:
+    - LICENSE.md
+    - nbdime/labextension/static/third-party-licenses.json
+  summary: Diff and merge of Jupyter Notebooks
+  homepage: https://pypi.org/project/nbdime
+  repository: https://github.com/jupyter/nbdime
+  documentation: https://nbdime.readthedocs.io
+
+extra:
+  recipe-maintainers:
+    - kain88-de
+    - minrk
+    - ocefpaf
+    - bollwyvl
