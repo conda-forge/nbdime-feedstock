@@ -19,7 +19,7 @@ build:
   number: 0
   noarch: python
   script:
-    - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+    - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation --disable-pip-version-check
   python:
     entry_points:
       - git-nbdiffdriver = nbdime.vcs.git.diffdriver:main
@@ -49,7 +49,6 @@ requirements:
     - gitpython !=2.1.4,!=2.1.5,!=2.1.6
     - jinja2 >=2.9
     - jupyter_server
-    - jupyter-server-mathjax >=0.2.2
     - nbformat
     - pygments
     - python >=${{ python_min }}
