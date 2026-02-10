@@ -152,6 +152,3 @@ Feedstock Maintainers
 * [@minrk](https://github.com/minrk/)
 * [@ocefpaf](https://github.com/ocefpaf/)
 
-
-<!-- dummy commit to enable rerendering -->
-
